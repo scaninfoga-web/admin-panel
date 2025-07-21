@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { get } from '@/lib/api';
 import { formatDate } from '@/lib/utils';
-import { CustomTable } from '@/components/custom/custom-table';
+import { CustomTable, type Column } from '@/components/custom/custom-table';
 import Pagination from '@/components/custom/pagination';
 import { Card } from '../ui/card';
 
@@ -91,7 +91,7 @@ const BookmarkInformation: React.FC<Props> = ({ user_id }) => {
       title: 'Status',
       dataIndex: 'status',
     },
-  ];
+  ] as Column<Bookmark>[]
 
   const populateData = async () => {
     if (!user_id) return;

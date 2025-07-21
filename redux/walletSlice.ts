@@ -138,7 +138,7 @@
 // export default walletSlice.reducer;
 
 import { get } from '@/lib/api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface LastSuccessfulTransaction {
   txn_id: string;

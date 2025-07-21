@@ -38,7 +38,7 @@
 // export const { setCredentials, logout } = userSlice.actions;
 // export default userSlice.reducer;
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
 const accessToken = getCookie('accessToken');

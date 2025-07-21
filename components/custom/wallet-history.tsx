@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { get } from '@/lib/api';
 import { formatDate } from '@/lib/utils';
-import { CustomTable } from '@/components/custom/custom-table';
+import { CustomTable, type Column } from '@/components/custom/custom-table';
 import Pagination from '@/components/custom/pagination';
 import { Card } from '@/components/ui/card';
 
@@ -63,7 +63,7 @@ const WalletHistory: React.FC<Props> = ({ user_id }) => {
       dataIndex: 'created_at',
       render: (val: string) => formatDate(val),
     },
-  ];
+  ] as Column<WalletHistoryProps>[];
 
   const populateData = async () => {
     if (!user_id) return;
@@ -72,7 +72,7 @@ const WalletHistory: React.FC<Props> = ({ user_id }) => {
       const res = await get(
         `/api/admin/user-wallet-history?user_id=${user_id}&page=${currentPage}&page_size=${pageSize}`
       );
-      const result = res?.responseData?.result || [];
+      const result = res?.responseData.result || [];
       const count = res?.responseData?.paginationDetails?.count || 0;
 
       setRecords(result);

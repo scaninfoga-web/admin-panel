@@ -41,7 +41,7 @@
 // export const { setInfo } = infoSlice.actions;
 // export default infoSlice.reducer;
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface InfoState {
   latitude: string | null;

@@ -1,10 +1,11 @@
 "use client"
 
-import { User, Mail, Crown, Smile, Meh, Frown, Badge } from 'lucide-react';
+import { User, Mail, Crown, Smile, Meh, Frown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatISOtoDDMMYYYY } from '@/lib/utils';
 import type { ProfileInformationCardProps } from '@/lib/types';
 import { Loader } from './custom-loader';
+import { Badge } from '../ui/badge';
 
 interface PropsUtil {
   data: ProfileInformationCardProps | undefined;
@@ -12,6 +13,7 @@ interface PropsUtil {
 }
 
 export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => {
+  console.log("Data: ", data?.subscription_plan);
   const getSubscriptionColor = (type: string) => {
     switch (type) {
       case 'SILVER':
@@ -102,7 +104,7 @@ export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => 
               {formatISOtoDDMMYYYY(data.date_joined)}
             </span>
           </div>
-          <div className="flex items-center justify-between border-b border-slate-600 py-2">
+          {/* <div className="flex items-center justify-between border-b border-slate-600 py-2">
             <span className="text-slate-300">Wallet Balance</span>
             <div className="flex items-center gap-2">
               <span
@@ -112,17 +114,17 @@ export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => 
               </span>
               {getWalletIcon(data.balance)}
             </div>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between py-3">
             <span className="font-medium text-slate-300">Subscription</span>
             <Badge
               className={`${getSubscriptionColor(data.subscription_plan)} border-2 px-4 py-2 text-sm font-bold shadow-lg`}
             >
-              {getSubscriptionIcon(data.subscriptionType)}
+              {getSubscriptionIcon(data.subscription_plan)}
               <span className="space-x-1 uppercase tracking-wide">
                 <span className="ml-2 text-xs">
                   {' '}
-                  {data?.subscription_plan}{' '}
+                  {data?.subscription_plan || "ABCD"}{' '}
                 </span>
               </span>
             </Badge>

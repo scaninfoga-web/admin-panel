@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { get } from '@/lib/api';
 import { formatDate } from '@/lib/utils';
-import { CustomTable } from '@/components/custom/custom-table';
+import { CustomTable, type Column } from '@/components/custom/custom-table';
 import Pagination from '@/components/custom/pagination';
 import { Card } from '../ui/card';
 
@@ -76,7 +76,7 @@ const LoginHistoryInformation: React.FC<Props> = ({ user_id }) => {
     { title: 'Cameras', dataIndex: 'cameras' },
     { title: 'Microphones', dataIndex: 'microphones' },
     { title: 'Possible IoT', dataIndex: 'possibleIoT', render: (val: boolean | null) => val ? 'Yes' : 'No' }
-  ];
+  ] as Column<UserSession>[]
 
   const populateData = async () => {
     if (!user_id) return;

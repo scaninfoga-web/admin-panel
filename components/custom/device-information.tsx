@@ -57,13 +57,13 @@ export const DeviceInformation: React.FC<PropsUtil> = ({data, loading}) => {
   return (
     <Card className="card-bg border-slate-700 row-span-2 text-sm">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-emerald-500">
+        <CardTitle className="flex items-center text-emerald-500">
           <MapPin className="h-5 w-5 text-emerald-500" />
           Location Overview
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-x-2 gap-y-4">
+        <div className="grid grid-cols-2 gap-2">
           {data &&
             Object.entries(data).map(([key, value]) => {
               const label = LABELS[key as keyof DeviceInformationProps] || null;
