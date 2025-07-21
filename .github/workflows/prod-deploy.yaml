@@ -1,0 +1,67 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy on EC2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+
+    - name: Create app directory on EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "mkdir -p /home/ubuntu/admin-app"
+
+    - name: Copy source code to EC2
+      run: |
+        rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+          --exclude='.git' \
+          --exclude='node_modules' \
+          --exclude='.next' \
+          --exclude='dist' \
+          ./ \
+          ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/admin-app/
+
+    - name: Create .env file on EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+        cat <<EOT > /home/ubuntu/admin-app/.env
+        NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}
+        EOT
+        EOF
+
+
+    - name: Install dependencies and build on EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /home/ubuntu/admin-app
+          pnpm install
+          pnpm run build
+        EOF
+
+    - name: Deploy with PM2 on EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /home/ubuntu/admin-app
+          
+          pm2 delete admin-app || true
+          PORT=3001 pm2 start "pnpm run start" --name admin-app
+          pm2 save
+          pm2 startup systemd -u ubuntu --hp /home/ubuntu || true
+        EOF
+        
+        
