@@ -24,7 +24,7 @@ note: z.string().optional()
 
 type TransactionFormValues = z.infer<typeof transactionSchema>;
 
-export default function NoteForm({note, user_id}: {note: string, user_id: number}) {
+export default function NoteForm({note, user_id, handleModalState}: {note: string, user_id: number, handleModalState: () => void}) {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<TransactionFormValues>({
@@ -47,6 +47,7 @@ export default function NoteForm({note, user_id}: {note: string, user_id: number
       toast.error('Failed to submit note.');
     } finally {
       setLoading(false);
+      handleModalState()
     }
   };
 

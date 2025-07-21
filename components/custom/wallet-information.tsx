@@ -6,22 +6,53 @@ import { Button } from '../ui/button';
 import type { WalletInformationProps } from '@/lib/types';
 import { Loader } from './custom-loader';
 import { formatISOtoDDMMYYYY } from '@/lib/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from './modal';
-import WalletUpdateForm from './wallet-update-form';
+import {WalletUpdateForm} from './wallet-update-form';
+import { get } from '@/lib/api';
+import { toast } from 'sonner';
 
 
 interface PropsUtil {
-  data: WalletInformationProps | undefined;
-  loading: boolean;
   user_id: number;
 }
-export const WalletInformation: React.FC<PropsUtil> = ({data, loading, user_id}) => {
+export const WalletInformation: React.FC<PropsUtil> = ({user_id}) => {
   const [creditModalOpen, setCreditModalOpen] = useState(false)
   const [debitModalOpen, setDebitModalOpen] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<WalletInformationProps>()
+
+  const populateData = async () => {
+    try{
+      setLoading(true)
+      const data1 = await get(`/api/admin/get-user-wallet-balance?user_id=${user_id}`);
+      setData(data1.responseData)
+    }
+    catch(error){
+      toast.error("Error fetching wallet details.")
+      console.error("Wallet info error: ", error)
+    }
+    finally{
+      setLoading(false)
+    }
+  }
+
+  const handleModalState = () => {
+    setCreditModalOpen(false)
+    setDebitModalOpen(false)
+    populateData();
+  }
+
+  useEffect(() => {
+    populateData()
+  }, [])
 
   if(loading || !data){
-    return <Loader />
+    return (
+      <Card>
+    <Loader />
+      </Card>
+    )
   }
 
   return (
@@ -51,11 +82,11 @@ export const WalletInformation: React.FC<PropsUtil> = ({data, loading, user_id})
 
     <Modal
       open={creditModalOpen}
-      onClose={() => setCreditModalOpen(false)}
+      onClose={handleModalState}
       title="Wallet Credit"
       showFooter={false}
     >
-      <WalletUpdateForm txnType="credit" user_id={user_id} />
+      <WalletUpdateForm handleModalState={handleModalState} txnType="credit" user_id={user_id} />
     </Modal>
 
     <Modal
@@ -64,7 +95,7 @@ export const WalletInformation: React.FC<PropsUtil> = ({data, loading, user_id})
       title="Wallet Debit"
       showFooter={false}
     >
-      <WalletUpdateForm txnType="debit" user_id={user_id} />
+      <WalletUpdateForm txnType="debit" user_id={user_id} handleModalState={handleModalState} />
     </Modal>
     </>
   );

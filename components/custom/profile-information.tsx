@@ -13,7 +13,6 @@ interface PropsUtil {
 }
 
 export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => {
-  console.log("Data: ", data?.subscription_plan);
   const getSubscriptionColor = (type: string) => {
     switch (type) {
       case 'SILVER':
@@ -51,8 +50,12 @@ export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => 
     }
   };
 
-  if(loading || !data){
-    return <Loader />
+   if(loading || !data){
+    return (
+      <Card className='row-span-2'>
+    <Loader />
+      </Card>
+    )
   }
 
   return (

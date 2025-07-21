@@ -22,7 +22,13 @@ const transactionSchema = z.object({
 
 type TransactionFormValues = z.infer<typeof transactionSchema>;
 
-export default function WalletUpdateForm({txnType, user_id}: {txnType: 'credit' | 'debit', user_id: number}) {
+interface Props {
+  txnType: string,
+  user_id: number,
+  handleModalState: () => void
+}
+
+export const  WalletUpdateForm: React.FC<Props> = ({txnType, user_id, handleModalState}) => {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<TransactionFormValues>({
@@ -45,6 +51,7 @@ export default function WalletUpdateForm({txnType, user_id}: {txnType: 'credit' 
     } catch (error) {
       toast.error('Failed to submit transaction.');
     } finally {
+      handleModalState()
       setLoading(false);
     }
   };

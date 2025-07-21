@@ -5,13 +5,11 @@ import Title from "@/components/custom/custom-title"
 import { DeviceInformation } from "@/components/custom/device-information"
 import { LocationInformation } from "@/components/custom/location-information"
 import LoginHistoryInformation from "@/components/custom/login-history-information"
-import { Modal } from "@/components/custom/modal"
 import { Notes } from "@/components/custom/notes"
 import { ProfileInformationCard } from "@/components/custom/profile-information"
 import UserActivity from "@/components/custom/user-activity"
 import WalletHistory from "@/components/custom/wallet-history"
 import { WalletInformation } from "@/components/custom/wallet-information"
-import WalletUpdateForm from "@/components/custom/wallet-update-form"
 import { get } from "@/lib/api"
 import type { DeviceInformationProps, LocationInformationProps, ProfileInformationCardProps, WalletInformationProps } from "@/lib/types"
 import { AxiosError } from "axios"
@@ -77,7 +75,7 @@ const UserProfile: React.FC<{user_id: number}> = ({user_id}) => {
         <Title title="User Profile" backButton path="/users" />
         <div className="grid grid-cols-3 gap-2 md:gap-4">
         <ProfileInformationCard data = {profileInfo} loading = {userInfoLoading} />
-        <WalletInformation  data = {walletInfo} loading = {userInfoLoading} user_id={user_id} />
+        <WalletInformation user_id={user_id} />
         <Notes user_id={user_id}/>
         <LocationInformation  data = {locationInfo} loading = {userInfoLoading} />
         <DeviceInformation data = {deviceInfo} loading = {userInfoLoading} />

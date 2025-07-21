@@ -25,13 +25,15 @@ export const getClientInfo = () => {
   const info = state.info || {};
 
   // Create a client info object with all the required fields
-  return {
-    latitude: info.latitude || '',
-    longitude: info.longitude || '',
-    browser: info.browser || '',
-    device: info.device || '',
-    ip: info.ip || '',
-  };
+  // return {
+  //   latitude: info.latitude || '',
+  //   longitude: info.longitude || '',
+  //   browser: info.browser || '',
+  //   device: info.device || '',
+  //   ip: info.ip || '',
+  // };
+
+  return info;
 };
 
 // Main API call function

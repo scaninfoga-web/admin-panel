@@ -1,25 +1,64 @@
-'use client'
+"use client";
 
-import { MapPin } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useSelector } from 'react-redux';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { AxiosError } from 'axios';
-import { toast } from 'sonner';
-import { get } from '@/lib/api';
-import type { LocationInformationProps } from '@/lib/types';
-import { Loader } from './custom-loader';
+import { MapPin } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
+import { get, post } from "@/lib/api";
+import type { LocationInformationProps } from "@/lib/types";
+import { Loader } from "./custom-loader";
 
 interface PropsUtil {
   data: LocationInformationProps | undefined;
   loading: boolean;
 }
 
-export const LocationInformation: React.FC<PropsUtil> = ({data, loading}) => {
+export interface userLocation {
+  responseStatus: {
+    status: boolean;
+    message: string;
+  };
+  responseData: {
+    content_type: string;
+    image: string;
+  };
+}
 
-  if(loading || !data){
-    return <Loader />
+
+export const LocationInformation: React.FC<PropsUtil> = ({ data, loading }) => {
+  const [locationData, setLocationData] = useState<userLocation | null>();
+
+  const populateMapImg = async () => {
+    try {
+      if (locationData) return;
+      // setLoading(true);
+      const imageData = await post("/api/auth/getlocation", {
+        longitude: data?.longitude,
+        latitude: data?.latitude,
+      });
+      setLocationData(imageData)
+    } catch (error) {
+      toast.error("Error getting maps data.");
+    } finally {
+      // setMapLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if(data?.latitude && data?.longitude){
+      populateMapImg()
+    }
+  }, [data?.latitude, data?.longitude])
+
+  if (loading || !data) {
+    return (
+      <Card>
+        <Loader />
+      </Card>
+    );
   }
 
   return (
@@ -54,7 +93,7 @@ export const LocationInformation: React.FC<PropsUtil> = ({data, loading}) => {
           </div> */}
         </div>
         <div className="relative flex h-64 items-center justify-center overflow-hidden rounded-lg border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-800">
-          {/* {mapLoading ? (
+          {loading ? (
             <Loader />
           ) : locationData ? (
             <Image
@@ -74,7 +113,7 @@ export const LocationInformation: React.FC<PropsUtil> = ({data, loading}) => {
                 Map visualization will be displayed here
               </p>
             </div>
-          )} */}
+          )}
         </div>
       </CardContent>
     </Card>

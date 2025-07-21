@@ -1,17 +1,14 @@
 'use client'
 
-import { MapPin } from 'lucide-react';
+import { MapPin, NotebookIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '../ui/button';
-import type { WalletInformationProps } from '@/lib/types';
-import { Loader } from './custom-loader';
-import { formatISOtoDDMMYYYY } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import { Modal } from './modal';
-import WalletUpdateForm from './wallet-update-form';
 import NoteForm from './note-form';
 import { get } from '@/lib/api';
 import { toast } from 'sonner';
+import { Loader } from './custom-loader';
 
 interface PropsUtil {
 //   data: WalletInformationProps | undefined;
@@ -23,6 +20,7 @@ export const Notes: React.FC<PropsUtil> = ({user_id}) => {
 //   const [debitModalOpen, setDebitModalOpen] = useState(false)
 
 const [note, setNote] = useState("")
+const [loading, setLoading] = useState(false)
 
 const [modalOpen, setModalOpen] = useState(false)
 
@@ -33,6 +31,7 @@ const [modalOpen, setModalOpen] = useState(false)
 
 const populateData = async () => {
     try{
+      setLoading(true)
         const data = await get(`/api/admin/user-note?user_id=${user_id}`)
         setNote(data.responseData.note || "")
     }
@@ -40,19 +39,35 @@ const populateData = async () => {
         toast.error("Failed to load the user note")
         console.error("Fetch note failed: ", error)
     }
+    finally{
+      setLoading(false)
+    }
 }
 
 useEffect(() => {
     populateData();
 }, [])
 
+const handleModalState = () => {
+  setModalOpen(false);
+  populateData();
+}
+
+ if(loading){
+    return (
+      <Card>
+    <Loader />
+      </Card>
+    )
+  }
+
   return (
     <>
     <Card className="card-bg border-slate-700">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-emerald-500">
-          <MapPin className="h-5 w-5 text-emerald-500" />
-          Wallet
+          <NotebookIcon className="h-5 w-5 text-emerald-500" />
+          Notes
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -89,7 +104,7 @@ useEffect(() => {
       title="Note"
       showFooter={false}
     >
-      <NoteForm note={note} user_id={user_id} />
+      <NoteForm handleModalState={handleModalState} note={note} user_id={user_id} />
     </Modal>
 
     {/* <Modal

@@ -41,11 +41,13 @@ interface PropsUtil{
 
 export const DeviceInformation: React.FC<PropsUtil> = ({data, loading}) => {
 
-
-  if(loading || !data){
-    return <Loader />
+ if(loading || !data){
+    return (
+      <Card>
+    <Loader />
+      </Card>
+    )
   }
- 
 
   const renderField = (label: string, value: any) => (
     <div key={label} className="flex items-center justify-between">
