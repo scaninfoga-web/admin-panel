@@ -1,6 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/(sidebar)/users/page": "app/(sidebar)/users/page.js",
-  "/(sidebar)/setCredentials/page": "app/(sidebar)/setCredentials/page.js",
-  "/(sidebar)/transactions/page": "app/(sidebar)/transactions/page.js"
-}
