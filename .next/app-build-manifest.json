@@ -16,10 +16,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/(sidebar)/users/[user_id]/page": [
+    "/(sidebar)/transactions/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(sidebar)/users/[user_id]/page.js"
+      "static/chunks/app/(sidebar)/transactions/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
