@@ -1,4 +1,4 @@
-// File: /Users/abhinavsrivastava/Desktop/Scan/scan_admin_frontend/app/(sidebar)/layout.tsx
+// File: /Users/ashish/Desktop/admin-panel/app/(sidebar)/layout.tsx
 import * as entry from '../../../../app/(sidebar)/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

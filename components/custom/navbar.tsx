@@ -16,7 +16,7 @@ const Navbar : React.FC<{}> = () => {
     router.refresh()
   }
   return (
-    <header className="w-full fixed top-0 bg-background px-6 z-10">
+    <header className="w-full fixed top-0 bg-background px-6 z-10 border-b">
       <div className="w-full flex items-center justify-between">
         <div>
           <Image
@@ -30,6 +30,11 @@ const Navbar : React.FC<{}> = () => {
             priority={true}
             loading="eager"
           />
+        </div>
+        <div className="flex items-center gap-4 py-2 px-10 rounded-full mt-2">
+          <Button onClick={() => {router.push('/users')}} variant={'outline'}>Users</Button>
+          <Button onClick={() => { router.push('/transactions') }} variant={'outline'}>Transactions</Button>
+          <Button onClick={() => { router.push('/setCredentials') }} variant={'outline'}>Set Credentials</Button>
         </div>
         <div>
           {
