@@ -63,7 +63,7 @@ export const userSlice = createSlice({
       });
 
       setCookie('user', JSON.stringify(action.payload.user || null), {
-        maxAge: 60 * 60 * 24 * 10,
+        maxAge: 60 * 60 * 24 ,
         path: '/',
       });
     },

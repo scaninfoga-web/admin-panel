@@ -28,6 +28,7 @@ const Navbar: React.FC<{}> = () => {
             unoptimized
             priority={true}
             loading="eager"
+            
           />
         </div>
         {token && (
