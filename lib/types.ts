@@ -19,6 +19,8 @@ export interface LastSuccessfulTransaction {
 export interface WalletInformationProps {
   balance: string;
   last_successful_transaction: LastSuccessfulTransaction;
+  total_credited: string,
+  total_debited: string,
 }
 
 export interface LocationInformationProps {
