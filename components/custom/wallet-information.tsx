@@ -79,10 +79,10 @@ export const WalletInformation: React.FC<PropsUtil> = ({user_id}) => {
           </div>
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-white">Total credited</h3>
-            <p className="text-gray-300">{data?.total_credited}</p>
+            <p className="text-gray-300">{data?.total_transaction}</p>
           </div>
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-white">Total debited</h3>
+            <h3 className="font-semibold text-white">Charges and Deductions</h3>
             <p className="text-gray-300">{data?.total_debited}</p>
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">

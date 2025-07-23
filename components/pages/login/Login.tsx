@@ -16,6 +16,7 @@ import { post } from '@/lib/api';
 import { CustomForm } from '@/components/custom/custom-form';
 import { CustomInput } from '@/components/custom/custom-input';
 import { Card } from '@/components/ui/card';
+import { getCookie } from 'cookies-next';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),

@@ -7,12 +7,38 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { logout } from "@/redux/userSlice";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { getCookie, setCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 
 const Navbar: React.FC = () => {
   const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
+
+  const validEnvs = ['DEVELOPMENT', 'PRODUCTION'];
+
+const [env, setEnv] = useState<string>('DEVELOPMENT');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('environment');
+    const envValue = typeof saved === 'string' && validEnvs.includes(saved)
+      ? saved
+      : 'DEVELOPMENT';
+
+    setEnv(envValue);
+
+    if (saved !== envValue) {
+      localStorage.setItem('environment', envValue);
+    }
+  }, []);
+
+  const handleChange = (value: string) => {
+    setEnv(value);
+    localStorage.setItem('environment', value);
+    // window.location.reload(); // optional
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -68,6 +94,20 @@ const Navbar: React.FC = () => {
               Logout
             </button>
           )}
+          {
+            !token && (
+              <Select value={env} onValueChange={handleChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select environment" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="DEVELOPMENT">DEVELOPMENT</SelectItem>
+          <SelectItem value="PRODUCTION">PRODUCTION</SelectItem>
+        </SelectContent>
+      </Select>
+
+            )
+          }
         </div>
       </div>
     </header>
