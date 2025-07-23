@@ -14,7 +14,6 @@ export default function Title({
   backButton,
   path
 }: TitleProps) {
-  console.log("Back button: ", backButton);
   return (
     <section className="mt-8 md:mt-0">
       <h1 className="text-3xl font-bold flex gap-x-4 items-center">

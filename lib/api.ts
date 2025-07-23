@@ -1,11 +1,9 @@
 import axios, { type AxiosRequestConfig, type Method } from 'axios';
 import { store } from '@/redux/store';
 
-// Base URL for your API
 const BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/';
 
-// Create axios instance with default config
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 100000,
@@ -23,15 +21,6 @@ const getAuthToken = () => {
 export const getClientInfo = () => {
   const state = store.getState();
   const info = state.info || {};
-
-  // Create a client info object with all the required fields
-  // return {
-  //   latitude: info.latitude || '',
-  //   longitude: info.longitude || '',
-  //   browser: info.browser || '',
-  //   device: info.device || '',
-  //   ip: info.ip || '',
-  // };
 
   return info;
 };
@@ -80,7 +69,7 @@ export const apiCall = async <T = any>(
       const response = await axiosInstance(config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     }
   } catch (error) {

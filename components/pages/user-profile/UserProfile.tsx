@@ -60,7 +60,6 @@ const UserProfile: React.FC<{user_id: number}> = ({user_id}) => {
         if(error instanceof AxiosError){
             toast.error(error.message);
         }
-        console.log(error);
     }
     finally{
         setUserInfoLoading(false)

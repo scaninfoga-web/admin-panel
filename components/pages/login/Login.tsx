@@ -69,7 +69,6 @@ export default function Login() {
         router.refresh();
       }
     } catch (error) {
-      // await clearCookies();
       toast.error('Login failed. Check your credentials and try again.');
     } finally {
       setLoading(false);

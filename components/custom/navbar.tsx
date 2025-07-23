@@ -1,20 +1,30 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../ui/button";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { logout } from "@/redux/userSlice";
-import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-const Navbar: React.FC<{}> = () => {
+const Navbar: React.FC = () => {
   const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
+
   const handleLogout = () => {
     dispatch(logout());
     router.refresh();
   };
+
+  const navLinks = [
+    { label: "Users", href: "/users" },
+    { label: "Transactions", href: "/transactions" },
+    { label: "Set Credentials", href: "/setCredentials" },
+  ];
+
   return (
     <header className="w-full fixed top-0 bg-background px-6 z-10 border-b">
       <div className="w-full flex items-center justify-between">
@@ -28,38 +38,37 @@ const Navbar: React.FC<{}> = () => {
             unoptimized
             priority={true}
             loading="eager"
-            
           />
         </div>
+
         {token && (
-          <div className="flex items-center gap-4 py-2 px-10 rounded-full mt-2">
-            <Button
-              onClick={() => {
-                router.push("/users");
-              }}
-              variant={"outline"}
-            >
-              Users
-            </Button>
-            <Button
-              onClick={() => {
-                router.push("/transactions");
-              }}
-              variant={"outline"}
-            >
-              Transactions
-            </Button>
-            <Button
-              onClick={() => {
-                router.push("/setCredentials");
-              }}
-              variant={"outline"}
-            >
-              Set Credentials
-            </Button>
+          <div className="flex items-center gap-6 py-2 px-10 rounded-full mt-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "font-medium hover:text-emerald-600 transition-colors",
+                  pathname === link.href &&
+                    "underline underline-offset-4 decoration-emerald-500 text-emerald-500"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         )}
-        <div>{token && <Button onClick={handleLogout}> Logout </Button>}</div>
+
+        <div>
+          {token && (
+            <button
+              onClick={handleLogout}
+              className="text-sm font-medium text-red-600 hover:underline"
+            >
+              Logout
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -9,13 +9,11 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = !!accessToken;
 
   if (isAuthenticated) {
-    // Authenticated user: block access to `/`, redirect to `/dashboard`
     if (isRootPath) {
       return NextResponse.redirect(new URL('/users', request.url));
     }
     return NextResponse.next();
   } else {
-    // Not authenticated: allow only `/`
     if (!isRootPath) {
       return NextResponse.redirect(new URL('/', request.url));
     }

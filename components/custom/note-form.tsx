@@ -13,13 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { User } from 'lucide-react';
 
 const transactionSchema = z.object({
-//   amount: z
-//     .string()
-//     .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-//       message: 'Amount must be a positive number',
-//     }),
-//   comment: z.string().optional(),
-note: z.string().optional()
+  note: z.string().optional()
 });
 
 type TransactionFormValues = z.infer<typeof transactionSchema>;
@@ -36,7 +30,6 @@ export default function NoteForm({note, user_id, handleModalState}: {note: strin
 
   const onSubmit = async (data: TransactionFormValues) => {
     const payload = {...data, user_id}
-    console.log("Payload: ", payload);
     try {
       setLoading(true);
     const url = '/api/admin/user-note'

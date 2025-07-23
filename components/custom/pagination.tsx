@@ -110,7 +110,6 @@ export default function Pagination({
             size="sm"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            // className="h-9 px-3 border-slate-300 dark:border-slate-600 hover:bg-emerald-50 hover:border-emerald-400 dark:hover:bg-emerald-950 dark:hover:border-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
           >
             <ChevronLeft className="mr-1 h-4 w-4" />
             <span className="hidden sm:inline">Previous</span>
@@ -140,7 +139,6 @@ export default function Pagination({
             size="sm"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            // className="h-9 px-3 border-slate-300 dark:border-slate-600 hover:bg-emerald-50 hover:border-emerald-400 dark:hover:bg-emerald-950 dark:hover:border-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
           >
             <span className="hidden sm:inline">Next</span>
             <ChevronRight className="ml-1 h-4 w-4" />

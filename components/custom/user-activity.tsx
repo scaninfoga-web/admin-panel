@@ -52,19 +52,6 @@ const UserActivity: React.FC<Props> = ({ user_id }) => {
     {
   title: 'Request Payload',
   dataIndex: 'request_payload',
-  // render: (val: any) => {
-  //   const payloadStr = val && typeof val === 'object'
-  //     ? Object.entries(val)
-  //         .map(([k, v]) => `${k}: ${String(v)}`)
-  //         .join(', ')
-  //     : '-';
-
-  //   return (
-  //     <div className="max-w-[250px] truncate" title={payloadStr}>
-  //       {payloadStr}
-  //     </div>
-  //   );
-  // },
   render: (val: Object) => JSON.stringify(val)
 },
     {

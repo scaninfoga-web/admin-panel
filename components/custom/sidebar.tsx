@@ -19,7 +19,6 @@ const sidebarLinks = [
     href: '/dashboard',
     roles: ['USER', 'ADMIN'],
   },
-  // { title: 'User Profile', icon: User, href: '/profile', roles: ['ADMIN', 'USER'] },
   {
     title: 'Digital Intelligence',
     icon: Search,

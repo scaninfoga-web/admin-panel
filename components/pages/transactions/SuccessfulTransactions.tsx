@@ -1,11 +1,3 @@
-// const SuccessfulTransaction: React.FC = () => {
-//     return <h1>Success</h1>
-// }
-
-// export default SuccessfulTransaction
-
-
-
 'use client';
 
 import { useEffect, useState } from 'react';

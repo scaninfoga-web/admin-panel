@@ -1,10 +1,3 @@
-// const FailedTransaction: React.FC = () => {
-//     return <h1>Failed</h1>
-// }
-
-// export default FailedTransaction
-
-
 'use client';
 
 import { useEffect, useState } from 'react';

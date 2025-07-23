@@ -34,7 +34,6 @@ export const LocationInformation: React.FC<PropsUtil> = ({ data, loading }) => {
   const populateMapImg = async () => {
     try {
       if (locationData) return;
-      // setLoading(true);
       const imageData = await post("/api/auth/getlocation", {
         longitude: data?.longitude,
         latitude: data?.latitude,
@@ -101,7 +100,6 @@ export const LocationInformation: React.FC<PropsUtil> = ({ data, loading }) => {
               alt="map"
               width={600}
               height={500}
-              // fill
               className="max-h-64 w-full rounded-xl"
               unoptimized={true}
             />

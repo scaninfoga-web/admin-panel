@@ -11,23 +11,14 @@ import { toast } from 'sonner';
 import { Loader } from './custom-loader';
 
 interface PropsUtil {
-//   data: WalletInformationProps | undefined;
-//   loading: boolean;
   user_id: number;
 }
 export const Notes: React.FC<PropsUtil> = ({user_id}) => {
-//   const [creditModalOpen, setCreditModalOpen] = useState(false)
-//   const [debitModalOpen, setDebitModalOpen] = useState(false)
 
 const [note, setNote] = useState("")
 const [loading, setLoading] = useState(false)
 
 const [modalOpen, setModalOpen] = useState(false)
-
-//   if(loading || !data){
-//     return <Loader />
-//   }
-
 
 const populateData = async () => {
     try{
