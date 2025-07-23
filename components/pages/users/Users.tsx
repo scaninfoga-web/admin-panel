@@ -77,7 +77,7 @@ const Users: React.FC = () => {
     {
       title: "Wallet Balance",
       dataIndex: "wallet_balance" as keyof User,
-      render: (val: string) => `$${parseFloat(val || '0').toFixed(2)}`,
+      render: (val: string) => `${parseFloat(val || '0').toFixed(2)}`,
     },
     {
       title: "Total Spent",
