@@ -49,9 +49,9 @@ const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
       setLoading(true);
 
       const response = await post(
-        '/api/auth/login',
+        '/api/admin/admin-login',
         {
-          ...data, userType: "user"
+          ...data
         },
         { withCredentials: true }
       );
