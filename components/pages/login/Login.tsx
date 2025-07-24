@@ -25,8 +25,11 @@ const loginSchema = z.object({
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
+interface LoginProp {
+  setSelectedOption: (option: "forget") => void;
+}
 
-export default function Login() {
+const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
   const [loading, setLoading] = useState(false);
   const [requireOtp, setRequireOtp] = useState(false);
 
@@ -113,6 +116,12 @@ export default function Login() {
           {loading ? 'Loading...' : 'Login'}
         </Button>
       </CustomForm>
+
+      <div className="py-4 flex justify-center">
+        <Button variant="outline" className='border-0 hover:none' onClick={() => setSelectedOption("forget")}>Forget Password</Button>
+      </div>
     </Card>
   );
 }
+
+export default Login
