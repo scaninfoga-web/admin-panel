@@ -13,6 +13,8 @@ import { Activity, Download, RefreshCw, Eye } from "lucide-react";
 import { get } from "@/lib/api";
 import { UserActivitiesFilters, type ActivityFilterState } from "@/components/custom/user-activities-filter";
 import { Modal } from "@/components/custom/modal";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
 
 interface UserActivity {
   id: number;
@@ -43,6 +45,7 @@ const UserActivityList: React.FC = () => {
     setErrorMsg(val)
     setModalOpen(true)
   }
+
 
   const columns = [
     {

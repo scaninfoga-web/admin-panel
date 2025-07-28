@@ -4,11 +4,13 @@ import userReducer from './userSlice';
 import infoReducer from './infoSlice';
 import walletReducer from './walletSlice';
 import { getPersistedReducer } from './persistConfig';
+import apiListReducer from './apiListSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
   info: infoReducer,
   wallet: walletReducer,
+  apiList: apiListReducer
 });
 
 const persistedReducer = getPersistedReducer(rootReducer);

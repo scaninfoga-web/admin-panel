@@ -11,6 +11,8 @@ import { Card } from "@/components/ui/card";
 import { Users as UsersIcon, Download, RefreshCw } from "lucide-react";
 import { SimpleSearchFilters, type FilterState } from "@/components/custom/simple-search-filter";
 import { get } from "@/lib/api";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
 
 interface User {
   id: number;
@@ -32,6 +34,10 @@ const Users: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterState>({});
+
+    const state = useSelector((state: RootState) => state)
+
+  console.log("State user: ", state);
 
   const columns = [
     {

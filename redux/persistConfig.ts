@@ -14,7 +14,7 @@ export const getPersistedReducer = (rootReducer: any) => {
   const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'info'],
+    whitelist: ['user', 'info', 'apiList'],
   };
 
   return persistReducer(persistConfig, rootReducer);

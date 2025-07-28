@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +19,9 @@ import {
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 import { Search, X, Plus, ChevronUp, ChevronDown } from "lucide-react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
+import CustomSelect from "./custom-select";
 
 export interface ActivityFilterState {
   search?: string;
@@ -77,6 +82,11 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  console.log("Filtervalue: ", filterValue);
+
+  const apiList = useSelector((state: RootState) => state.apiList?.data || [])
+
 
   const updateFilter = (key: keyof ActivityFilterState, value: string | undefined) => {
     onFiltersChange({
@@ -197,6 +207,7 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
   };
 
   const renderFieldInput = () => {
+    console.log("Selected field: ", selectedField);
     if (!selectedField) return null;
 
     if (selectedField === "status") {
@@ -214,6 +225,12 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
           </SelectContent>
         </Select>
       );
+    }
+
+    if(selectedField === "api_called"){
+      return (
+        <CustomSelect value={filterValue} onChange={setFilterValue} data={apiList} />
+      )
     }
 
     return (

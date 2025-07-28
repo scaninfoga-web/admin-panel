@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '@/components/ui/button';
 
@@ -17,6 +17,7 @@ import { CustomForm } from '@/components/custom/custom-form';
 import { CustomInput } from '@/components/custom/custom-input';
 import { Card } from '@/components/ui/card';
 import { getCookie } from 'cookies-next';
+import type { RootState } from '@/redux/store';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -43,6 +44,8 @@ const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
       password: '',
     },
   });
+
+  const info = useSelector((state: RootState) => state.info )
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
