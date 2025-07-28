@@ -35,7 +35,7 @@ export function Modal({
 }: ModalProps) {
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-      <DialogContent className="border-gray-500 bg-black">
+      <DialogContent className="border-gray-500 bg-black max-h-1/2 overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-emerald-500">{title || ''}</DialogTitle>
         </DialogHeader>

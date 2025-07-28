@@ -49,6 +49,7 @@ const [env, setEnv] = useState<string>('DEVELOPMENT');
     { label: "Users", href: "/users" },
     { label: "Transactions", href: "/transactions" },
     { label: "Set Credentials", href: "/setCredentials" },
+    { label: "User Activites", href: "/user-activities" },
   ];
 
   return (

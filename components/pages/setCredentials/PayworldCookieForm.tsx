@@ -1,4 +1,3 @@
-"use client";
 import { CustomForm } from "@/components/custom/custom-form";
 import { CustomInput } from "@/components/custom/custom-input";
 import { Button } from "@/components/ui/button";
@@ -8,14 +7,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import PayworldCookieForm from "./PayworldCookieForm";
-import GhuntCookieForm from "./GhuntCookieForm";
-const payWorldSchema = z.object({
-  cookie: z.string().min(40, "Cookie is required"),
-});
 
-export default function SetCredentials() {
-  const [loading, setloading] = useState(false);
+const PayworldCookieForm: React.FC = () => {
+    const [loading, setloading] = useState(false);
   const payWorldform = useForm<{
     cookie: string;
   }>({
@@ -44,8 +38,8 @@ export default function SetCredentials() {
     }
   };
   return (
-    <div className="grid grid-cols-4 gap-4">
-      {/* <CustomForm
+    // <div className="grid grid-cols-4 gap-4">
+      <CustomForm
         form={payWorldform}
         onSubmit={handlePayWorldSubmit}
         className="space-y-4"
@@ -63,9 +57,9 @@ export default function SetCredentials() {
         >
           {loading ? "Loading..." : "Set Cookie Payworld"}
         </Button>
-      </CustomForm> */}
-      <PayworldCookieForm />
-      <GhuntCookieForm />
-    </div>
+      </CustomForm>
+    // </div>
   );
 }
+
+export default PayworldCookieForm;

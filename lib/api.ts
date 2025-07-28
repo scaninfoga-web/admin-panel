@@ -110,10 +110,10 @@ import { store } from '@/redux/store';
 
 // Function to dynamically get base URL from localStorage
 const getBaseUrl = () => {
-  // return "http://localhost:8000"
-  const env = typeof window !== 'undefined' ? localStorage.getItem('environment') : null;
-  if (env === 'PRODUCTION') return 'https://backend.scaninfoga.com';
-return 'https://dev-backend.scaninfoga.com';
+  return "http://localhost:8000"
+//   const env = typeof window !== 'undefined' ? localStorage.getItem('environment') : null;
+//   if (env === 'PRODUCTION') return 'https://backend.scaninfoga.com';
+// return 'https://dev-backend.scaninfoga.com';
 };
 
 // Create axios instance WITHOUT a fixed baseURL

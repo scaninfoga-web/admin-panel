@@ -1,4 +1,3 @@
-"use client";
 import { CustomForm } from "@/components/custom/custom-form";
 import { CustomInput } from "@/components/custom/custom-input";
 import { Button } from "@/components/ui/button";
@@ -8,14 +7,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import PayworldCookieForm from "./PayworldCookieForm";
-import GhuntCookieForm from "./GhuntCookieForm";
-const payWorldSchema = z.object({
-  cookie: z.string().min(40, "Cookie is required"),
-});
 
-export default function SetCredentials() {
-  const [loading, setloading] = useState(false);
+const GhuntCookieForm: React.FC = () => {
+    const [loading, setloading] = useState(false);
   const payWorldform = useForm<{
     cookie: string;
   }>({
@@ -33,10 +27,10 @@ export default function SetCredentials() {
     setloading(true);
     const { cookie } = payWorldform.getValues();
     try {
-      const res = await post("api/secondary/set-cookies", {
-        cookie: cookie,
-      });
-      toast.success("PayWorld cookie set successfully!");
+    //   const res = await post("api/secondary/set-cookies", {
+    //     cookie: cookie,
+    //   });
+      toast.success("Ghunt cookie set successfully!");
     } catch (error) {
       toast.error("Failed to set PayWorld cookie.");
     } finally {
@@ -44,28 +38,28 @@ export default function SetCredentials() {
     }
   };
   return (
-    <div className="grid grid-cols-4 gap-4">
-      {/* <CustomForm
+    // <div className="grid grid-cols-4 gap-4">
+      <CustomForm
         form={payWorldform}
         onSubmit={handlePayWorldSubmit}
         className="space-y-4"
       >
         <CustomInput
           name="cookie"
-          label="PayWorld Cookie"
+          label="Ghunt Cookie Cookie"
           type="text"
-          placeholder="enter payworld cookie"
+          placeholder="enter ghunt cookie"
         />
         <Button
           type="submit"
           className="w-full bg-emerald-500 text-black hover:bg-emerald-400"
           disabled={loading}
         >
-          {loading ? "Loading..." : "Set Cookie Payworld"}
+          {loading ? "Loading..." : "Set Cookie Ghunt"}
         </Button>
-      </CustomForm> */}
-      <PayworldCookieForm />
-      <GhuntCookieForm />
-    </div>
+      </CustomForm>
+    // </div>
   );
 }
+
+export default GhuntCookieForm;
