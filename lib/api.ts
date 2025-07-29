@@ -45,9 +45,17 @@ export const apiCall = async <T = any>(
       clientInfo: JSON.stringify(clientInfo),
     };
 
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
+    if(!endpoint.includes("verifyOTP") ||
+      !endpoint.includes("resendOTP") || 
+      !endpoint.includes("login") || 
+      !endpoint.includes("register") || 
+      !endpoint.includes("forget-password")
+    ){
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      }
+      
 
     const config: AxiosRequestConfig = {
       baseURL: getBaseUrl(), // 🔥 dynamic baseURL here

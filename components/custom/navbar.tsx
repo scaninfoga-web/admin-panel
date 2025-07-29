@@ -31,6 +31,7 @@ const Navbar: React.FC = () => {
     const fetchInfo = async () => {
       try {
         const info = await getClientInfoUtil();
+        console.log("INFO: ", info);
         dispatch(setInfo(info));
       } catch (e) {
         console.error('Failed to fetch client info', e);
@@ -55,7 +56,6 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      console.log("Dispatched");
       dispatch(getApiList());
     }
   }, [token]);

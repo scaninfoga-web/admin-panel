@@ -61,7 +61,7 @@ const ChangePassword = () => {
         toast.success('Password changed successfully');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error('Error changing password');
     }
   };
@@ -74,7 +74,7 @@ const ChangePassword = () => {
       toast.success('Enter OTP sent to your email');
       setStep(2);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error instanceof AxiosError) {
         toast.error(
           error.response?.data?.responseStatus?.message || 'Some error occured',

@@ -83,7 +83,6 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
   const [endDate, setEndDate] = useState("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  console.log("Filtervalue: ", filterValue);
 
   const apiList = useSelector((state: RootState) => state.apiList?.data || [])
 
@@ -207,7 +206,6 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
   };
 
   const renderFieldInput = () => {
-    console.log("Selected field: ", selectedField);
     if (!selectedField) return null;
 
     if (selectedField === "status") {

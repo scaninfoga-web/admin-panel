@@ -95,7 +95,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
 import { get } from "@/lib/api"
 
-console.log("SLICE LOADED");
+// console.log("SLICE LOADED");
 
 export interface ApiItem {
   label: string
@@ -115,9 +115,7 @@ const initialState: ApiListState = {
 }
 
 export const getApiList = createAsyncThunk("apiList/fetch", async () => {
-  console.log("GET API LIST CALLED")
   const res = await get("/api/admin/get-all-apis")
-  console.log("RES RETURNED: ", res.responseData);
   return res.responseData as ApiItem[]
 })
 
@@ -132,17 +130,14 @@ export const apiListSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getApiList.pending, (state) => {
-        console.log("PEnding");
         state.loading = true
         state.error = null
       })
       .addCase(getApiList.fulfilled, (state, action: PayloadAction<ApiItem[]>) => {
-        console.log("Fulfilled");
         state.data = action.payload
         state.loading = false
       })
       .addCase(getApiList.rejected, (state, action) => {
-        console.log(":Rehected");
         state.loading = false
         state.error = action.error.message ?? "Failed to fetch API list"
       })
