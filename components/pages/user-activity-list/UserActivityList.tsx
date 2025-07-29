@@ -111,27 +111,6 @@ const UserActivityList: React.FC = () => {
         ) : '-'
       ),
     },
-    // {
-    //   title: "Action",
-    //   dataIndex: "action" as keyof UserActivity,
-    //   render: (_: string, record: UserActivity) => (
-    //     <Button
-    //       variant="outline"
-    //       size="sm"
-    //       onClick={() => {
-    //         const details = {
-    //           ...record,
-    //           request_payload: JSON.stringify(record.request_payload, null, 2)
-    //         };
-    //         console.log('Activity Details:', details);
-    //         toast.info("Activity details logged to console");
-    //       }}
-    //     >
-    //       <Eye className="h-4 w-4 mr-1" />
-    //       View
-    //     </Button>
-    //   ),
-    // },
   ];
 
   const buildQueryParams = useCallback(() => {

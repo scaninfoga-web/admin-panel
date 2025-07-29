@@ -27,6 +27,7 @@ interface InfoState {
   city: string | null;
   country: string | null;
   possibleIoT: boolean | null;
+  fetched: boolean;
 }
 
 const initialState: InfoState = {
@@ -56,6 +57,7 @@ const initialState: InfoState = {
   city: null,
   country: null,
   possibleIoT: null,
+  fetched: false
 };
 
 export const infoSlice = createSlice({
@@ -63,7 +65,7 @@ export const infoSlice = createSlice({
   initialState,
   reducers: {
     setInfo: (state, action: PayloadAction<InfoState>) => {
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload};
     },
   },
 });

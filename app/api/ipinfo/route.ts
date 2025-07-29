@@ -2,13 +2,13 @@
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+import axios from 'axios';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  console.log("API /api/ipinfo called");
   try {
-    const response = await fetch('https://ipapi.co/json/');
-    const data = await response.json();
+    const response = await axios.get('https://ipapi.co/json/');
+    const data = response.data;
     return NextResponse.json(data);
   } catch (err) {
     console.error('Proxy to ipapi.co failed:', err);

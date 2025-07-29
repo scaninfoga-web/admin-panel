@@ -37,8 +37,6 @@ const Users: React.FC = () => {
 
     const state = useSelector((state: RootState) => state)
 
-  console.log("State user: ", state);
-
   const columns = [
     {
       title: "ID",

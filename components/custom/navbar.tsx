@@ -31,8 +31,7 @@ const Navbar: React.FC = () => {
     const fetchInfo = async () => {
       try {
         const info = await getClientInfoUtil();
-        console.log("INFO: ", info);
-        dispatch(setInfo(info));
+        dispatch(setInfo({...info, fetched: true}));
       } catch (e) {
         console.error('Failed to fetch client info', e);
       }

@@ -16,7 +16,6 @@ import { post } from '@/lib/api';
 import { CustomForm } from '@/components/custom/custom-form';
 import { CustomInput } from '@/components/custom/custom-input';
 import { Card } from '@/components/ui/card';
-import { getCookie } from 'cookies-next';
 import type { RootState } from '@/redux/store';
 
 const loginSchema = z.object({
@@ -34,6 +33,8 @@ const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
   const [loading, setLoading] = useState(false);
   const [requireOtp, setRequireOtp] = useState(false);
 
+  const {fetched} = useSelector((state: RootState) => state.info)
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -45,9 +46,11 @@ const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
     },
   });
 
-  const info = useSelector((state: RootState) => state.info )
-
   const onSubmit = async (data: LoginFormValues) => {
+    if(!fetched){
+      toast.error("Please wait. Fetching your location details.")
+      return
+    }
     try {
       setLoading(true);
 
