@@ -77,7 +77,7 @@ export const getClientInfoUtil = async () => {
   else if (/iPad/.test(userAgent)) device = 'iPad';
   else if (/Android/.test(userAgent)) {
     const match = userAgent.match(/\((.*?)\)/);
-    device = match ? match[1] : 'Android';
+    device = match?.[1] || 'Android';
   } else if (/Macintosh/.test(userAgent)) device = 'Mac';
   else if (/Windows/.test(userAgent)) device = 'Windows PC';
 
@@ -119,7 +119,6 @@ export const getClientInfoUtil = async () => {
   let country = 'Unavailable';
   try {
     const ipInfo = await fetch('/api/ipinfo').then((res) => res.json());
-    console.log("IP INFO: ", ipInfo);
     publicIp = ipInfo.ip || publicIp;
     isp = ipInfo.org || isp;
     asn = ipInfo.asn || asn;
@@ -128,6 +127,13 @@ export const getClientInfoUtil = async () => {
   } catch (err) {
     console.warn("Failed to fetch public IP info:", err);
   }
+
+    let ip = 'Unknown';
+  try {
+    const res = await fetch('/api/ip');
+    const data = await res.json();
+    ip = data.ip || 'Unknown';
+  } catch {}
 
   const iotKeywords = ['ESP', 'Arduino', 'Raspberry', 'MicroPython', 'IoT'];
   const isIoT =
@@ -157,6 +163,7 @@ export const getClientInfoUtil = async () => {
     microphones,
     publicIp,
     isp,
+    ip,
     asn,
     city,
     country,
