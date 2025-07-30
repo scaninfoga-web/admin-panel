@@ -128,7 +128,7 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
     setFilterValue("");
     setStartDate("");
     setEndDate("");
-    setSelectedOperator("contains");
+    setSelectedOperator("equals");
     setIsPopoverOpen(false);
   };
 
