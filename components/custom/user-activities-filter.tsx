@@ -30,7 +30,7 @@ export interface ActivityFilterState {
   email__icontains?: string;
   api_called?: string;
   api_called__exact?: string;
-  api_called__icontains?: string;
+  // api_called__icontains?: string;
   ip_address?: string;
   ip_address__exact?: string;
   ip_address__icontains?: string;
@@ -77,7 +77,7 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [selectedField, setSelectedField] = useState("");
-  const [selectedOperator, setSelectedOperator] = useState("contains");
+  const [selectedOperator, setSelectedOperator] = useState("equals");
   const [filterValue, setFilterValue] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -244,6 +244,7 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
   const showOperatorSelection =
     selectedField &&
     selectedField !== "status" &&
+    selectedField !== "api_called" &&
     selectedField !== "activity_time";
 
   const activeFilters = getActiveFilters();
@@ -322,7 +323,7 @@ export const UserActivitiesFilters: React.FC<UserActivitiesFiltersProps> = ({
                   <SelectTrigger className="bg-background">
                     <SelectValue placeholder="Select field" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background border z-50">
+                  <SelectContent className="bg-background border z-50 !overflow-auto">
                     {filterFields.map((field) => (
                       <SelectItem key={field.key} value={field.key}>
                         {field.label}

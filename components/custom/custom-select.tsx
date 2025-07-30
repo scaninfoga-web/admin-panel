@@ -77,7 +77,7 @@ export default function CustomSelect<T extends OptionType>({
           <Command className="max-h-60 overflow-y-auto">
             <CommandInput placeholder="Search..." />
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="overflow-auto">
               {data.map((item) => (
                 <CommandItem
                   key={item[valueKey]}
