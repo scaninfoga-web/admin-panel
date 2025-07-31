@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Users as UsersIcon, Download, RefreshCw } from "lucide-react";
 import { SimpleSearchFilters, type FilterState } from "@/components/custom/simple-search-filter";
-import { get } from "@/lib/api";
+import { get, post } from "@/lib/api";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 
@@ -34,8 +34,28 @@ const Users: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterState>({});
+  const [statusBtnLoading, setStatusBtnLoading] = useState(false)
 
     const state = useSelector((state: RootState) => state)
+
+    const toggleInactiveStatus = async (id: number) => {
+      setStatusBtnLoading(true)
+      try {
+        await post("/api/admin/toggle-active-status", {id})
+        toast.success("Active status toggled")
+        setTableData(prev =>
+      prev.map(row =>
+        row.id === id ? { ...row, is_active: !row.is_active } : row
+      )
+    );
+      }
+      catch(error){
+        toast.error("Error changing active status")
+      }
+      finally{
+        setStatusBtnLoading(false)
+      }
+    }
 
   const columns = [
     {
@@ -89,16 +109,31 @@ const Users: React.FC = () => {
       render: (val: string) => `$${parseFloat(val || '0').toFixed(2)}`,
     },
     {
+      title: "Active status",
+      dataIndex: "is_active" as keyof User,
+      render: (val: boolean) => val ? "Active" : "Inactive"
+    },
+    {
       title: "Action",
       dataIndex: "action" as keyof User,
       render: (_: string, record: User) => (
+        <div className="flex gap-x-4">
         <Button
           variant="outline"
           size="sm"
           onClick={() => window.open(`/users/${record.id}`, '_blank')}
-        >
+          >
           View Details
         </Button>
+        <Button
+          variant={record.is_active ? "destructive" : "default"}
+          size="sm"
+          loading={statusBtnLoading}
+          onClick={() => toggleInactiveStatus(record.id)}
+          >
+          Set as {record.is_active ? "Inactive" : "Active"}
+        </Button>
+          </div>
       ),
     },
   ];
