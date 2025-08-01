@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import { getApiList } from "@/redux/apiListSlice";
 import { setInfo } from "@/redux/infoSlice";
+import { Button } from "../ui/button";
 
 const Navbar: React.FC = () => {
   const token = useSelector((state: RootState) => state.user.token);
@@ -27,13 +28,13 @@ const Navbar: React.FC = () => {
   const validEnvs = ["DEVELOPMENT", "PRODUCTION"];
 
   const [env, setEnv] = useState<string>("DEVELOPMENT");
- useEffect(() => {
+  useEffect(() => {
     const fetchInfo = async () => {
       try {
         const info = await getClientInfoUtil();
-        dispatch(setInfo({...info, fetched: true}));
+        dispatch(setInfo({ ...info, fetched: true }));
       } catch (e) {
-        console.error('Failed to fetch client info', e);
+        console.error("Failed to fetch client info", e);
       }
     };
     fetchInfo();
@@ -50,7 +51,7 @@ const Navbar: React.FC = () => {
 
     if (saved !== envValue) {
       localStorage.setItem("environment", envValue);
-  }
+    }
   }, []);
 
   useEffect(() => {
@@ -92,7 +93,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        {token && (
+        {token && pathname !== "/" && (
           <div className="flex items-center gap-6 py-2 px-10 rounded-full mt-2">
             {navLinks.map((link) => (
               <Link
@@ -111,13 +112,18 @@ const Navbar: React.FC = () => {
         )}
 
         <div>
-          {token && (
-            <button
-              onClick={handleLogout}
-              className="text-sm font-medium text-red-600 hover:underline"
-            >
-              Logout
-            </button>
+          {token && pathname !== "/" && (
+            <>
+              <div className="p-4 inline-block">{env}</div>
+              |
+              <Button
+              
+                onClick={handleLogout}
+                className="text-sm font-medium text-red-600 hover:underline bg-transparent"
+              >
+                Logout
+              </Button>
+            </>
           )}
           {!token && (
             <Select value={env} onValueChange={handleChange}>

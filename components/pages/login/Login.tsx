@@ -76,7 +76,8 @@ const Login: React.FC<LoginProp> = ({setSelectedOption}) => {
           })
         );
         toast.success('Logged in successfully!', { duration: 800 });
-        router.refresh();
+        // router.refresh();
+        router.push("/users")
       }
     } catch (error) {
       toast.error('Login failed. Check your credentials and try again.');
