@@ -107,17 +107,6 @@ export const ProfileInformationCard: React.FC<PropsUtil> = ({data, loading}) => 
               {formatISOtoDDMMYYYY(data.date_joined)}
             </span>
           </div>
-          {/* <div className="flex items-center justify-between border-b border-slate-600 py-2">
-            <span className="text-slate-300">Wallet Balance</span>
-            <div className="flex items-center gap-2">
-              <span
-                className={`font-bold ${getWalletStatusColor(data.balance)}`}
-              >
-                {data.balance}
-              </span>
-              {getWalletIcon(data.balance)}
-            </div>
-          </div> */}
           <div className="flex items-center justify-between py-3">
             <span className="font-medium text-slate-300">Subscription</span>
             <Badge

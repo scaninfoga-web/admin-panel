@@ -9,8 +9,6 @@ import { Button } from '@/components/ui/button';
 import { post } from '@/lib/api';
 import { CustomForm } from '@/components/custom/custom-form';
 import { CustomInput } from '@/components/custom/custom-input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { User } from 'lucide-react';
 
 const transactionSchema = z.object({
   note: z.string().optional()

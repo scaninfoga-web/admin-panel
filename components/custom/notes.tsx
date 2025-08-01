@@ -74,18 +74,6 @@ const handleModalState = () => {
         <div className="flex justify-center">
         <Button onClick={() => setModalOpen(true)}> Add / View Note </Button>
         </div>
-          {/* <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-white">Balance:</h3>
-            <p className="text-gray-300">{data.balance}</p>
-          </div>
-          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-white">Last Transaction Date:</h3>
-            <p className="text-gray-300">{formatISOtoDDMMYYYY(data.last_successful_transaction?.created_at)}</p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <Button onClick={() => setCreditModalOpen(true)}> Credit </Button>
-            <Button onClick={() => setDebitModalOpen(true)}> Debit </Button>
-          </div> */}
       </CardContent>
     </Card>
 
@@ -97,15 +85,6 @@ const handleModalState = () => {
     >
       <NoteForm handleModalState={handleModalState} note={note} user_id={user_id} />
     </Modal>
-
-    {/* <Modal
-      open={debitModalOpen}
-      onClose={() => setDebitModalOpen(false)}
-      title="Wallet Debit"
-      showFooter={false}
-    >
-      <WalletUpdateForm txnType="debit" user_id={user_id} />
-    </Modal> */}
     </>
   );
 };
